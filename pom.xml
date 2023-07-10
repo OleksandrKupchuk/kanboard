@@ -16,6 +16,9 @@
         <org.seleniumhq.selenium.version>4.9.1</org.seleniumhq.selenium.version>
         <webdrivermanager.version>5.3.2</webdrivermanager.version>
         <selenide.version>6.14.1</selenide.version>
+        <rest-assured.version>5.3.0</rest-assured.version>
+        <lombok.version>1.18.24</lombok.version>
+        <json-object.version>20230227</json-object.version>
     </properties>
 
     <dependencies>
@@ -45,6 +48,34 @@
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>
             <version>${selenide.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${rest-assured.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-schema-validator</artifactId>
+            <version>${rest-assured.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>${json-object.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>5.3.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
