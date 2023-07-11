@@ -6,7 +6,7 @@ import io.restassured.response.Response;
 public class POST {
     private static final String URL = "http://localhost:80/jsonrpc.php";
     private static final String USERNAME = "jsonrpc";
-    private static final String TOKEN = "f30b746b3b130f06848d50c2c119bb79c4336f065deb4ad25e5cf81624bb";
+    private static final String TOKEN = "de8197bbc55e4ebeb59ed30f687bddfcbcf4c1edee95a3ae04df440bb33b";
 
     public static Response send(Object body){
         Response response = RestAssured.given()

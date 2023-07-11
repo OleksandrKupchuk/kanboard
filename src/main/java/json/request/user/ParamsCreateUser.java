@@ -1,4 +1,4 @@
-package json.request;
+package json.request.user;
 
 import lombok.*;
 

@@ -7,7 +7,7 @@ import static com.codeborne.selenide.Selenide.$x;
 public class ProjectPage {
     private SelenideElement buttonAddTask = $x("//span[@class='dropdown']/a[text()='Ready ']/../../..//a[@title='Add a new task']");
 
-    public ProjectPage addTask(String nameColumn){
+    public ProjectPage clickAddTask(String nameColumn){
         buttonAddTask.click();
         return this;
     }

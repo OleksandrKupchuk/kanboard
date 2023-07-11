@@ -22,6 +22,11 @@ public class KanboardMainPage extends BasePage {
         return this;
     }
 
+    public KanboardMainPage clickProjectName(String projectName){
+        $x(String.format(this.projectName, projectName)).click();
+        return this;
+    }
+
     public KanboardMainPage assertProjectName(String projectName){
         $x(String.format(this.projectName, projectName)).shouldBe(Condition.exist);
         return this;

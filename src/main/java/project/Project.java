@@ -1,37 +1,55 @@
 package project;
 
 import htttpmethod.POST;
-import json.request.CreateRequest;
-import json.request.ParamsAddProjectUser;
-import json.request.ParamsCreateProject;
-import json.request.ParamsUpdateProject;
+import io.restassured.response.Response;
+import json.request.Request;
+import json.request.project.ParamsAddProjectUser;
+import json.request.project.ParamsCreateProject;
+import json.request.project.ParamsRemoveProject;
+import json.request.project.ParamsUpdateProject;
+import json.response.CreateResponse;
+import user.User;
+
+import static method.project.ProjectMethod.*;
 
 public class Project {
-    public void create(String name) {
+    private String projectID;
+    private String name;
+
+    public String getName(){
+        return name;
+    }
+
+    public Project create(String name) {
+        this.name = name;
+
         ParamsCreateProject params = ParamsCreateProject.builder()
                 .name(name)
                 .build();
 
-        CreateRequest createUserRequest = CreateRequest.builder()
-                .method("createProject")
+        Request createUserRequest = Request.builder()
+                .method(CREATE_PROJECT)
                 .params(params)
                 .build();
 
-        POST.send(createUserRequest);
+        Response response = POST.send(createUserRequest);
+        projectID = response.as(CreateResponse.class).getResult().toString();
+        return this;
     }
 
-    public void addProjectUser() {
+    public Project addUser(User user) {
         String[] params = new ParamsAddProjectUser.Builder()
-                .setProjectID("11")
-                .setUserID("4")
+                .setProjectID(projectID)
+                .setUserID(Integer.toString(user.getUserID()))
                 .build();
 
-        CreateRequest createUserRequest = CreateRequest.builder()
-                .method("addProjectUser")
+        Request createUserRequest = Request.builder()
+                .method(ADD_PROJECT_USER)
                 .params(params)
                 .build();
 
         POST.send(createUserRequest);
+        return this;
     }
 
     public void updateProject() {
@@ -40,11 +58,24 @@ public class Project {
                 .owner_id(4)
                 .build();
 
-        CreateRequest createUserRequest = CreateRequest.builder()
-                .method("updateProject")
+        Request createUserRequest = Request.builder()
+                .method(UPDATE_PROJECT)
                 .params(params)
                 .build();
 
         POST.send(createUserRequest);
+    }
+
+    public void remove() {
+        ParamsRemoveProject params = ParamsRemoveProject.builder()
+                .project_id(projectID)
+                .build();
+
+        Request request = Request.builder()
+                .method(REMOVE_PROJECT)
+                .params(params)
+                .build();
+
+        POST.send(request);
     }
 }

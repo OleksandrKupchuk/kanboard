@@ -1,4 +1,4 @@
-package json.request;
+package json.request.project;
 
 public class ParamsAddProjectUser {
     private String projectID;
