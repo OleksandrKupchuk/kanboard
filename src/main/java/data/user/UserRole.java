@@ -1,4 +1,4 @@
-package userrole;
+package data.user;
 
 public class UserRole {
     public static final String APP_USER = "app-user";

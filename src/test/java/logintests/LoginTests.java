@@ -1,6 +1,7 @@
 package logintests;
 
 import base.BaseTest;
+import data.user.Users;
 import org.testng.annotations.*;
 import pages.KanboardMainPage;
 import pages.LoginPage;
@@ -11,9 +12,10 @@ public class LoginTests extends BaseTest {
     public void testSuccessLogin() {
         new LoginPage()
                 .open()
-                .login("admin", "admin");
+                .login(Users.ADMIN);
 
         new KanboardMainPage()
+                .getBasePage()
                 .assertDashboardTitle("Dashboard for admin");
     }
 
@@ -21,7 +23,7 @@ public class LoginTests extends BaseTest {
     public void testUnsuccessfulLogin() {
         new LoginPage()
                 .open()
-                .login("admin1", "admin1")
+                .login(Users.NOT_EXISTENT)
                 .assertAlertErrorText("Bad username or password");
     }
 }

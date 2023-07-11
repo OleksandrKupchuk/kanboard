@@ -3,6 +3,7 @@ package pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import data.user.User;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -17,9 +18,9 @@ public class LoginPage {
         return this;
     }
 
-    public LoginPage login(String userName, String password){
-        setUserName(userName);
-        setPassword(password);
+    public LoginPage login(User user){
+        setUserName(user.getUserName());
+        setPassword(user.getPassword());
         clickSignInButton();
         return this;
     }

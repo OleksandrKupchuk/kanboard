@@ -1,5 +1,6 @@
 package user;
 
+import data.user.User;
 import htttpmethod.POST;
 import io.restassured.response.Response;
 import json.request.Request;
@@ -10,7 +11,7 @@ import json.response.CreateResponse;
 
 import static method.user.UserMethod.*;
 
-public class User {
+public class UserApi {
 
     private int userID;
     private String userName;
@@ -28,13 +29,10 @@ public class User {
         return password;
     }
 
-    public User create(String userName, String password) {
-        this.userName = userName;
-        this.password = password;
-
+    public UserApi create(User user) {
         ParamsCreateUser params = ParamsCreateUser.builder()
-                .username(userName)
-                .password(password)
+                .username(user.getUserName())
+                .password(user.getPassword())
                 .build();
 
         Request request = Request.builder()
@@ -47,7 +45,7 @@ public class User {
         return this;
     }
 
-    public User setRole(String role) {
+    public UserApi setRole(String role) {
         ParamsUpdateUser params = ParamsUpdateUser.builder()
                 .id(userID)
                 .role(role)
@@ -62,7 +60,7 @@ public class User {
         return this;
     }
 
-    public User remove() {
+    public UserApi remove() {
         ParamsRemoveUser params = ParamsRemoveUser.builder()
                 .user_id(userID)
                 .build();
