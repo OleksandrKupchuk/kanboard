@@ -1,4 +1,4 @@
-package logintests;
+package login;
 
 import base.BaseTest;
 import data.user.Users;
@@ -6,7 +6,7 @@ import org.testng.annotations.*;
 import pages.KanboardMainPage;
 import pages.LoginPage;
 
-public class LoginTests extends BaseTest {
+public class LoginTest extends BaseTest {
 
     @Test
     public void testSuccessLogin() {

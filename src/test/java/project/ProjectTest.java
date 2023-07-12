@@ -1,16 +1,16 @@
-package projecttests;
+package project;
 
+import api.ProjectApi;
 import data.*;
 import data.task.Tasks;
 import data.user.Users;
 import org.testng.annotations.Test;
 import pages.*;
-import project.ProjectApi;
-import user.UserApi;
+import api.UserApi;
 
 import static data.user.UserRole.APP_ADMIN;
 
-public class ProjectTests {
+public class ProjectTest {
 
     @Test
     public void testCreateProject() {
@@ -37,7 +37,7 @@ public class ProjectTests {
     @Test
     public void createProjectTaskInBacklogColumn() {
         UserApi userApi = new UserApi()
-                .create(Users.SIMPLE)
+                .create()
                 .setRole(APP_ADMIN);
 
         ProjectApi projectApi = new ProjectApi()
@@ -46,10 +46,10 @@ public class ProjectTests {
 
         new LoginPage()
                 .open()
-                .login(Users.SIMPLE);
+                .login(userApi.getUser());
 
         new KanboardMainPage()
-                .clickProjectName(projectApi.getName());
+                .clickProjectName(ProjectsName.AUTOMATION);
 
         new ProjectPage()
                 .clickAddTask(ProjectColumn.BACKLOG);
@@ -66,8 +66,8 @@ public class ProjectTests {
         new ProjectPage()
                 .assertExistTaskInBackgroundColumn(projectApi.getBacklogColumnID(), Tasks.AUTOMATION.getTitle());
 
-        projectApi.remove();
-        userApi.remove();
+        projectApi.remove(projectApi.getProjectID());
+        userApi.remove(userApi.getUserID());
     }
 
 //    @Test
@@ -111,7 +111,7 @@ public class ProjectTests {
         String commentForTask = "Very long comment for task";
 
         UserApi userApi = new UserApi()
-                .create(Users.SIMPLE)
+                .create()
                 .setRole(APP_ADMIN);
 
         ProjectApi projectApi = new ProjectApi()
@@ -120,10 +120,10 @@ public class ProjectTests {
 
         new LoginPage()
                 .open()
-                .login(Users.SIMPLE);
+                .login(userApi.getUser());
 
         new KanboardMainPage()
-                .clickProjectName(projectApi.getName());
+                .clickProjectName(ProjectsName.AUTOMATION);
 
         new ProjectPage()
                 .clickAddTask(ProjectColumn.BACKLOG);
@@ -148,7 +148,7 @@ public class ProjectTests {
                 .clickSaveButton()
                 .assertVisibleComment(commentForTask);
 
-        projectApi.remove();
-        userApi.remove();
+        projectApi.remove(projectApi.getProjectID());
+        userApi.remove(userApi.getUserID());
     }
 }
