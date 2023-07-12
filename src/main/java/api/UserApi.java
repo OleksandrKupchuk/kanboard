@@ -11,29 +11,29 @@ import json.request.user.ParamsRemoveUser;
 import json.request.user.ParamsUpdateUser;
 import json.response.CreateResponse;
 
-import static method.user.UserMethod.*;
+import static method.UserMethod.*;
 
 public class UserApi {
     private User user = new User();
-    private Response createResponse;
-    private Response removeResponse;
-    private Response userByNameResponse;
+    private Response responseCreate;
+    private Response responseRemove;
+    private Response responseUserByName;
     private int userID;
 
     public int getUserID() {
         return userID;
     }
 
-    public Response getCreateResponse() {
-        return createResponse;
+    public Response getResponseCreate() {
+        return responseCreate;
     }
 
-    public Response getRemoveResponse() {
-        return removeResponse;
+    public Response getResponseRemove() {
+        return responseRemove;
     }
 
-    public Response getUserByNameResponse() {
-        return userByNameResponse;
+    public Response getResponseUserByName() {
+        return responseUserByName;
     }
 
     public User getUser() {
@@ -58,8 +58,8 @@ public class UserApi {
                 .params(params)
                 .build();
 
-        createResponse = POST.send(request);
-        userID = (int) createResponse.as(CreateResponse.class).getResult();
+        responseCreate = POST.send(request);
+        userID = (int) responseCreate.as(CreateResponse.class).getResult();
         return this;
     }
 
@@ -88,7 +88,7 @@ public class UserApi {
                 .params(params)
                 .build();
 
-        userByNameResponse = POST.send(request);
+        responseUserByName = POST.send(request);
         return this;
     }
 
@@ -102,7 +102,7 @@ public class UserApi {
                 .params(params)
                 .build();
 
-        removeResponse = POST.send(request);
+        responseRemove = POST.send(request);
         return this;
     }
 }

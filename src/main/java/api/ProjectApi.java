@@ -1,41 +1,20 @@
 package api;
 
 import htttpmethod.POST;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import json.request.Request;
 import json.request.project.*;
 import json.response.CreateResponse;
 
-import static method.project.ProjectMethod.*;
+import static method.ProjectMethod.*;
 
 public class ProjectApi {
-    private String projectID;
-    private int backlogColumnID;
-    private int readyColumnID;
-    private int workInProgressColumnID;
-    private int doneColumnID;
+    private int projectID;
     private Response responseCreate;
     private Response responseRemove;
 
-    public String getProjectID(){
+    public int getProjectID(){
         return projectID;
-    }
-
-    public int getBacklogColumnID() {
-        return backlogColumnID;
-    }
-
-    public int getReadyColumnID() {
-        return readyColumnID;
-    }
-
-    public int getWorkInProgressColumnID() {
-        return workInProgressColumnID;
-    }
-
-    public int getDoneColumnID() {
-        return doneColumnID;
     }
 
     public Response getResponseCreate() {
@@ -57,14 +36,13 @@ public class ProjectApi {
                 .build();
 
         responseCreate = POST.send(createUserRequest);
-        projectID = responseCreate.as(CreateResponse.class).getResult().toString();
-        getBoard(projectID);
+        projectID = (int)responseCreate.as(CreateResponse.class).getResult();
         return this;
     }
 
     public ProjectApi addUser(UserApi user) {
         String[] params = new ParamsAddProjectUser.Builder()
-                .setProjectID(projectID)
+                .setProjectID(Integer.toString(projectID))
                 .setUserID(Integer.toString(user.getUserID()))
                 .build();
 
@@ -77,9 +55,24 @@ public class ProjectApi {
         return this;
     }
 
-    public Response getProjectById(String projectID) {
+    public ProjectApi addUser(int projectID, UserApi user) {
+        String[] params = new ParamsAddProjectUser.Builder()
+                .setProjectID(Integer.toString(projectID))
+                .setUserID(Integer.toString(user.getUserID()))
+                .build();
+
+        Request createUserRequest = Request.builder()
+                .method(ADD_PROJECT_USER)
+                .params(params)
+                .build();
+
+        POST.send(createUserRequest);
+        return this;
+    }
+
+    public Response getProjectById(int projectID) {
         ParamsGetProjectById params = ParamsGetProjectById.builder()
-                .project_id(Integer.parseInt(projectID))
+                .project_id(projectID)
                 .build();
 
         Request createUserRequest = Request.builder()
@@ -90,9 +83,9 @@ public class ProjectApi {
         return POST.send(createUserRequest);
     }
 
-    public void remove(String projectID) {
+    public void remove(int projectID) {
         ParamsRemoveProject params = ParamsRemoveProject.builder()
-                .project_id(projectID)
+                .project_id(Integer.toString(projectID))
                 .build();
 
         Request request = Request.builder()
@@ -101,23 +94,5 @@ public class ProjectApi {
                 .build();
 
         responseRemove = POST.send(request);
-    }
-
-    private void getBoard(String projectID) {
-        ParamsRemoveProject params = ParamsRemoveProject.builder()
-                .project_id(projectID)
-                .build();
-
-        Request request = Request.builder()
-                .method(GET_BOARD)
-                .params(params)
-                .build();
-
-        Response response = POST.send(request);
-        JsonPath jsonpath = response.jsonPath();
-        backlogColumnID = jsonpath.getInt("result[0].columns[0].id");
-        readyColumnID = jsonpath.getInt("result[0].columns[1].id");
-        workInProgressColumnID = jsonpath.getInt("result[0].columns[2].id");
-        doneColumnID = jsonpath.getInt("result[0].columns[3].id");
     }
 }

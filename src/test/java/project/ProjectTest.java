@@ -1,5 +1,6 @@
 package project;
 
+import api.BoardApi;
 import api.ProjectApi;
 import data.*;
 import data.task.Tasks;
@@ -44,6 +45,9 @@ public class ProjectTest {
                 .create(ProjectsName.AUTOMATION)
                 .addUser(userApi);
 
+        BoardApi boardApi = new BoardApi()
+                .getBoard(projectApi.getProjectID());
+
         new LoginPage()
                 .open()
                 .login(userApi.getUser());
@@ -64,7 +68,7 @@ public class ProjectTest {
                 .clickSaveButton();
 
         new ProjectPage()
-                .assertExistTaskInBackgroundColumn(projectApi.getBacklogColumnID(), Tasks.AUTOMATION.getTitle());
+                .assertExistTaskInBackgroundColumn(boardApi.getBacklogColumnID(), Tasks.AUTOMATION.getTitle());
 
         projectApi.remove(projectApi.getProjectID());
         userApi.remove(userApi.getUserID());
@@ -118,6 +122,9 @@ public class ProjectTest {
                 .create(ProjectsName.AUTOMATION)
                 .addUser(userApi);
 
+        BoardApi boardApi = new BoardApi()
+                .getBoard(projectApi.getProjectID());
+
         new LoginPage()
                 .open()
                 .login(userApi.getUser());
@@ -138,8 +145,8 @@ public class ProjectTest {
                     .clickSaveButton();
 
         new ProjectPage()
-                .assertExistTaskInBackgroundColumn(projectApi.getBacklogColumnID(), Tasks.AUTOMATION.getTitle())
-                .clickOnTask(projectApi.getBacklogColumnID(), Tasks.AUTOMATION.getTitle());
+                .assertExistTaskInBackgroundColumn(boardApi.getBacklogColumnID(), Tasks.AUTOMATION.getTitle())
+                .clickOnTask(boardApi.getBacklogColumnID(), Tasks.AUTOMATION.getTitle());
 
         new TaskPage()
                 .clickCommentButton()

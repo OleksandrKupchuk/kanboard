@@ -1,4 +1,4 @@
-package method.user;
+package method;
 
 public class UserMethod {
     public static final String CREATE_USER = "createUser";
