@@ -87,18 +87,6 @@
 
     <profiles>
         <profile>
-            <id>browser_chrome</id>
-            <properties>
-                <web_rowser_name>chrome</web_rowser_name>
-            </properties>
-        </profile>
-        <profile>
-            <id>browser_firefox</id>
-            <properties>
-                <web_rowser_name>firefox</web_rowser_name>
-            </properties>
-        </profile>
-        <profile>
             <id>login</id>
             <build>
                 <plugins>
@@ -150,12 +138,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M4</version>
                 <configuration>
-                    <suiteXmlFiles>>
-                        <suiteXmlFile>src/test/testng.xml</suiteXmlFile>
-                    </suiteXmlFiles>
                     <systemPropertyVariables>
                         <browser_name>chrome</browser_name>
-                        <browser_name>chrome</browser_name>
+                        <url_project>http://localhost/login</url_project>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
