@@ -1,7 +1,7 @@
 package api;
 
 import data.ColorId;
-import data.ProjectsName;
+import data.ProjectName;
 import data.Task;
 import io.restassured.path.json.JsonPath;
 import org.testng.Assert;
@@ -44,7 +44,7 @@ public class ApiTest {
         JsonPath jsonPath;
 
         ProjectApi projectApi = new ProjectApi()
-                .create(ProjectsName.MANUAL);
+                .create(ProjectName.MANUAL);
 
         jsonPath = projectApi.getResponseCreate().jsonPath();
         Assert.assertEquals(projectApi.getResponseCreate().statusCode(), 200);
@@ -52,7 +52,7 @@ public class ApiTest {
 
         jsonPath = projectApi.getProjectById(projectApi.getProjectID()).jsonPath();
         Assert.assertEquals(projectApi.getProjectById(projectApi.getProjectID()).statusCode(), 200);
-        Assert.assertEquals(jsonPath.get("result.name"), ProjectsName.MANUAL);
+        Assert.assertEquals(jsonPath.get("result.name"), ProjectName.MANUAL);
 
         projectApi.remove(projectApi.getProjectID());
 
@@ -69,7 +69,7 @@ public class ApiTest {
         JsonPath jsonPath;
 
         ProjectApi projectApi = new ProjectApi()
-                .create(ProjectsName.MANUAL);
+                .create(ProjectName.MANUAL);
 
         Task task = Task.builder()
                 .title("Feature One")

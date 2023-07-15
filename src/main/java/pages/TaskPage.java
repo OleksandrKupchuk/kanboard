@@ -1,28 +1,25 @@
 package pages;
 
-import base.BasePage;
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.SelenideElement;
-import pages.modal.CommentModalPage;
+import pages.modal.*;
 
-import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class TaskPage {
-    private BasePage<TaskPage> basePage = new BasePage<>(this);
     private CommentModalPage<TaskPage> commentModalPage = new CommentModalPage<>(this);
-    private SelenideElement commentButton = $(".fa.fa-comment-o.fa-fw.js-modal-small");
+    private CloseElementModalWindow<TaskPage> closeTaskModalWindow = new CloseElementModalWindow<>(this);
+    private String sidebarButton = "//div[@class='sidebar sidebar-icons']//li/a[text() = '%s']";
     private String commentForTask = "//div[@class='comment ']//p[text()='%s']";
 
-    public BasePage<TaskPage> getBasePage() {
-        return basePage;
-    }
-    public CommentModalPage<TaskPage> getcommentModalPage() {
+    public CommentModalPage<TaskPage> getCommentModalPage() {
         return commentModalPage;
     }
+    public CloseElementModalWindow<TaskPage> getCloseTaskModalWindow() {
+        return closeTaskModalWindow;
+    }
 
-    public TaskPage clickCommentButton(){
-        commentButton.click();
+    public TaskPage clickSidebarButton(String nameButton){
+        $x(String.format(sidebarButton, nameButton)).click();
         return this;
     }
 

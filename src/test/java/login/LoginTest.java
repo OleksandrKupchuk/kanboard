@@ -6,8 +6,10 @@ import org.testng.annotations.*;
 import pages.KanboardMainPage;
 import pages.LoginPage;
 
-public class LoginTest extends BaseTest {
+import static data.text.DashboardText.*;
+import static data.text.LoginText.*;
 
+public class LoginTest extends BaseTest {
     @Test
     public void testSuccessLogin() {
         new LoginPage()
@@ -16,7 +18,7 @@ public class LoginTest extends BaseTest {
 
         new KanboardMainPage()
                 .getBasePage()
-                .assertDashboardTitle("Dashboard for admin");
+                .assertDashboardTitle(DASHBOARD_TITLE);
     }
 
     @Test
@@ -24,6 +26,6 @@ public class LoginTest extends BaseTest {
         new LoginPage()
                 .open()
                 .login(Users.NOT_EXISTENT)
-                .assertAlertErrorText("Bad username or password");
+                .assertAlertErrorText(BAD_CREDENTIAL);
     }
 }
