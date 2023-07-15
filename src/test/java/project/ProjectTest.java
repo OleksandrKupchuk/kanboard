@@ -20,7 +20,7 @@ import static data.user.UserRole.*;
 
 public class ProjectTest {
 
-    @Test
+    @Test(groups = {"ui"})
     public void testCreateProject() {
         new LoginPage()
                 .open()
@@ -42,7 +42,7 @@ public class ProjectTest {
                 .logout();
     }
 
-    @Test
+    @Test(groups = {"ui", "api"})
     public void testCloseProject() {
         UserApi userApi = new UserApi()
                 .create()
@@ -78,7 +78,7 @@ public class ProjectTest {
                 .logout();
     }
 
-    @Test
+    @Test(groups = {"ui", "api"})
     public void testCreateProjectTaskInBacklogColumn() {
         UserApi userApi = new UserApi()
                 .create()
@@ -117,7 +117,7 @@ public class ProjectTest {
         userApi.remove(userApi.getUserID());
     }
 
-    @Test
+    @Test(groups = {"ui", "api"})
     public void testCloseProjectTaskInBacklogColumn() {
         UserApi userApi = new UserApi()
                 .create()
@@ -172,7 +172,7 @@ public class ProjectTest {
         userApi.remove(userApi.getUserID());
     }
 
-    @Test
+    @Test(groups = {"ui", "api"})
     public void testAddCommentToTheTask() {
         String commentForTask = "Very long comment for task";
 
@@ -221,7 +221,7 @@ public class ProjectTest {
         userApi.remove(userApi.getUserID());
     }
 
-    @Test
+    @Test(groups = {"ui", "api"})
     public void testDragTaskFromBackgroundToDoneColumn() {
         UserApi userApi = new UserApi()
                 .create()

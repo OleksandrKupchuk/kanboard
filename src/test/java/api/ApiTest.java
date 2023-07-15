@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 public class ApiTest {
 
-    @Test
+    @Test(groups = {"api"})
     public void createAndDeleteUser(){
         JsonPath jsonPath;
 
@@ -39,7 +39,7 @@ public class ApiTest {
         Assert.assertNull(jsonPath.get("result"));
     }
 
-    @Test
+    @Test(groups = {"api"})
     public void createAndDeleteProject(){
         JsonPath jsonPath;
 
@@ -64,7 +64,7 @@ public class ApiTest {
         Assert.assertNull(jsonPath.get("result"));
     }
 
-    @Test
+    @Test(groups = {"api"})
     public void createAndDeleteTask(){
         JsonPath jsonPath;
 
