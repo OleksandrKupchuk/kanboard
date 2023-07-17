@@ -4,11 +4,12 @@
     <listeners>
         <listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener" />
     </listeners>
-    <test name="Test Basics 1">
+    <test name="kanboard">
         <packages>
             <package name="api"/>
             <package name="login"/>
             <package name="project"/>
+            <package name="task"/>
         </packages>
     </test>
 </suite>

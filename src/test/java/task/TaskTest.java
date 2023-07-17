@@ -14,8 +14,8 @@ import json.request.task.ParamsCreateTask;
 import org.testng.annotations.Test;
 import pages.KanboardMainPage;
 import pages.LoginPage;
-import pages.TaskCreatePage;
-import pages.TaskPage;
+import pages.task.TaskCreatePage;
+import pages.task.TaskPage;
 import pages.project.ProjectHeaderElement;
 import pages.project.ProjectPage;
 

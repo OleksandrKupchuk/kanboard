@@ -1,4 +1,4 @@
-package pages;
+package pages.task;
 
 import com.codeborne.selenide.Condition;
 import pages.modal.*;
