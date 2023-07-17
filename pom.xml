@@ -21,7 +21,9 @@
         <json-object.version>20230227</json-object.version>
         <javafaker.version>1.0.2</javafaker.version>
         <maven-surefire.version>3.0.0-M4</maven-surefire.version>
+        <maven-compiler.version>3.11.0</maven-compiler.version>
         <slf4j.version>2.0.5</slf4j.version>
+        <java.version>1.8</java.version>
     </properties>
 
     <dependencies>
@@ -119,7 +121,7 @@
                         <version>${maven-surefire.version}</version>
                         <configuration>
                             <suiteXmlFiles>
-                                <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+                                <suiteXmlFile>src/test/resources/login.xml</suiteXmlFile>
                             </suiteXmlFiles>
                         </configuration>
                     </plugin>
@@ -127,7 +129,7 @@
             </build>
         </profile>
         <profile>
-            <id>testProperty</id>
+            <id>api</id>
             <build>
                 <plugins>
                     <plugin>
@@ -136,7 +138,7 @@
                         <version>${maven-surefire.version}</version>
                         <configuration>
                             <suiteXmlFiles>
-                                <suiteXmlFile>src/test/resources/testTwo.xml</suiteXmlFile>
+                                <suiteXmlFile>src/test/resources/api.xml</suiteXmlFile>
                             </suiteXmlFiles>
                         </configuration>
                     </plugin>
@@ -150,10 +152,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>${maven-compiler.version}</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -164,6 +166,9 @@
                     <systemPropertyVariables>
                         <browser_name>chrome</browser_name>
                         <url_project>http://localhost/login</url_project>
+                        <browser_headless>false</browser_headless>
+                        <url_project_api>http://localhost:80/jsonrpc.php</url_project_api>
+                        <kanboard_token>7a68c425c7923d0f144dc5598b09ccb15eab9bff85c6239f481c21814bd3</kanboard_token>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -182,6 +187,16 @@
                             <value>com.epam.reportportal.testng.ReportPortalTestNGListener</value>
                         </property>
                     </properties>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire.version}</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>src/test/resources/login.xml</suiteXmlFile>
+                    </suiteXmlFiles>
                 </configuration>
             </plugin>
         </plugins>

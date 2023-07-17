@@ -1,4 +1,4 @@
-package data;
+package data.text;
 
 public class TaskSidebarButtons {
     public static final String ADD_COMMENT = "Add a comment";

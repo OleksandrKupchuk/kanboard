@@ -14,6 +14,8 @@ public class LoginPage {
     private SelenideElement alertError = $(".alert.alert-error");
 
     public LoginPage open(){
+        String url;
+        url = System.getProperty("url_project");
         Selenide.open(System.getProperty("url_project"));
         return this;
     }

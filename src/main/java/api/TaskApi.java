@@ -1,46 +1,35 @@
 package api;
 
-import data.Task;
 import htttpmethod.POST;
-import io.restassured.response.Response;
 import json.request.Request;
 import json.request.task.ParamsTaskId;
 import json.request.task.ParamsCreateTask;
-import json.response.CreateResponse;
-import json.response.GetTaskResponse;
+import json.response.Response;
 
 import static method.TaskMethod.*;
 
 public class TaskApi {
     private int taskID;
-    private Response responseCreate;
-    private Response responseGetTaskById;
-    private Response responseRemove;
+    private io.restassured.response.Response responseCreate;
+    private io.restassured.response.Response responseGetTaskById;
+    private io.restassured.response.Response responseRemove;
     public int getTaskID(){return taskID;}
-    public Response getResponseCreate(){return responseCreate;}
-    public Response getResponseGetTaskById(){return responseGetTaskById;}
-    public Response getResponseRemove(){return responseRemove;}
+    public io.restassured.response.Response getResponseCreate(){return responseCreate;}
+    public io.restassured.response.Response getResponseGetTaskById(){return responseGetTaskById;}
+    public io.restassured.response.Response getResponseRemove(){return responseRemove;}
 
-    public TaskApi create(Task task){
-        ParamsCreateTask params = ParamsCreateTask.builder()
-                .title(task.getTitle())
-                .project_id(task.getProject_id())
-                .description(task.getDescription())
-                .color_id(task.getColor_id())
-                .column_id(task.getColumn_id())
-                .build();
-
+    public TaskApi create(ParamsCreateTask params){
         Request createUserRequest = Request.builder()
                 .method(CREATE_TASK)
                 .params(params)
                 .build();
 
         responseCreate = POST.send(createUserRequest);
-        taskID = (int)responseCreate.as(CreateResponse.class).getResult();
+        taskID = (int)responseCreate.as(Response.class).getResult();
         return this;
     }
 
-    public Response getTaskById(int taskID){
+    public io.restassured.response.Response getTaskById(int taskID){
         ParamsTaskId params = ParamsTaskId.builder()
                 .task_id(taskID)
                 .build();

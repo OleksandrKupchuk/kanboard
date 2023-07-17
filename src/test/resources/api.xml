@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="kanboard" parallel="methods" thread-count="2">
+<suite name="Login Suite">
     <listeners>
         <listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener" />
     </listeners>
     <test name="Test Basics 1">
-        <packages>
-            <package name="api"/>
-            <package name="login"/>
-            <package name="project"/>
-        </packages>
+        <classes>
+            <class name="api.ApiTest">
+                <methods>
+                    <include name="createAndDeleteProject"/>
+                </methods>
+            </class>
+        </classes>
     </test>
 </suite>

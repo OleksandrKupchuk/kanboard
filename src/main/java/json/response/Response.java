@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CreateResponse<T> {
+public class Response<T> {
     @Builder.Default
     private String jsonrpc = "2.0";
     private int id;

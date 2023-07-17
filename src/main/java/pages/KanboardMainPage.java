@@ -6,7 +6,7 @@ import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
-import static data.ProfileMenu.*;
+import static data.text.ProfileMenu.*;
 
 public class KanboardMainPage {
     private BasePage<KanboardMainPage> basePage = new BasePage<>(this);

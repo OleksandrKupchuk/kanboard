@@ -1,9 +1,9 @@
 package api;
 
-import data.ColorId;
-import data.ProjectName;
-import data.Task;
+import data.task.ColorId;
+import data.text.ProjectName;
 import io.restassured.path.json.JsonPath;
+import json.request.task.ParamsCreateTask;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -71,7 +71,7 @@ public class ApiTest {
         ProjectApi projectApi = new ProjectApi()
                 .create(ProjectName.MANUAL);
 
-        Task task = Task.builder()
+        ParamsCreateTask taskParams = ParamsCreateTask.builder()
                 .title("Feature One")
                 .project_id(projectApi.getProjectID())
                 .description("Need added this feature")
@@ -79,7 +79,7 @@ public class ApiTest {
                 .build();
 
         TaskApi taskApi = new TaskApi()
-                .create(task);
+                .create(taskParams);
 
         jsonPath = taskApi.getResponseCreate().jsonPath();
 
@@ -89,7 +89,7 @@ public class ApiTest {
         jsonPath = taskApi.getTaskById(taskApi.getTaskID()).jsonPath();
 
         Assert.assertEquals(taskApi.getTaskById(taskApi.getTaskID()).statusCode(), 200);
-        Assert.assertEquals(jsonPath.get("result.title"), task.getTitle());
+        Assert.assertEquals(jsonPath.get("result.title"), taskParams.getTitle());
         Assert.assertEquals((int) jsonPath.get("result.id"), taskApi.getTaskID());
 
         taskApi.remove(taskApi.getTaskID());

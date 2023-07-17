@@ -1,27 +1,26 @@
 package api;
 
 import htttpmethod.POST;
-import io.restassured.response.Response;
 import json.request.Request;
 import json.request.project.*;
-import json.response.CreateResponse;
+import json.response.Response;
 
 import static method.ProjectMethod.*;
 
 public class ProjectApi {
     private int projectID;
-    private Response responseCreate;
-    private Response responseRemove;
+    private io.restassured.response.Response responseCreate;
+    private io.restassured.response.Response responseRemove;
 
     public int getProjectID(){
         return projectID;
     }
 
-    public Response getResponseCreate() {
+    public io.restassured.response.Response getResponseCreate() {
         return responseCreate;
     }
 
-    public Response getResponseRemove() {
+    public io.restassured.response.Response getResponseRemove() {
         return responseRemove;
     }
 
@@ -36,7 +35,7 @@ public class ProjectApi {
                 .build();
 
         responseCreate = POST.send(createUserRequest);
-        projectID = (int)responseCreate.as(CreateResponse.class).getResult();
+        projectID = (int)responseCreate.as(Response.class).getResult();
         return this;
     }
 
@@ -70,7 +69,7 @@ public class ProjectApi {
         return this;
     }
 
-    public Response getProjectById(int projectID) {
+    public io.restassured.response.Response getProjectById(int projectID) {
         ParamsGetProjectById params = ParamsGetProjectById.builder()
                 .project_id(projectID)
                 .build();

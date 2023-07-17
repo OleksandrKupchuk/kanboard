@@ -1,10 +1,6 @@
 package json.request.project;
 
 public class ParamsAddProjectUser {
-    private String projectID;
-    private String userID;
-    private String role;
-
     public static class Builder{
         private String projectID;
         private String userID;

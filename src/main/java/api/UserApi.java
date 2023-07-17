@@ -3,36 +3,35 @@ package api;
 import com.github.javafaker.Faker;
 import data.user.User;
 import htttpmethod.POST;
-import io.restassured.response.Response;
 import json.request.Request;
 import json.request.user.ParamsCreateUser;
 import json.request.user.ParamsGetUserByName;
 import json.request.user.ParamsRemoveUser;
 import json.request.user.ParamsUpdateUser;
-import json.response.CreateResponse;
+import json.response.Response;
 
 import static method.UserMethod.*;
 
 public class UserApi {
     private User user = new User();
-    private Response responseCreate;
-    private Response responseRemove;
-    private Response responseUserByName;
+    private io.restassured.response.Response responseCreate;
+    private io.restassured.response.Response responseRemove;
+    private io.restassured.response.Response responseUserByName;
     private int userID;
 
     public int getUserID() {
         return userID;
     }
 
-    public Response getResponseCreate() {
+    public io.restassured.response.Response getResponseCreate() {
         return responseCreate;
     }
 
-    public Response getResponseRemove() {
+    public io.restassured.response.Response getResponseRemove() {
         return responseRemove;
     }
 
-    public Response getResponseUserByName() {
+    public io.restassured.response.Response getResponseUserByName() {
         return responseUserByName;
     }
 
@@ -59,7 +58,7 @@ public class UserApi {
                 .build();
 
         responseCreate = POST.send(request);
-        userID = (int) responseCreate.as(CreateResponse.class).getResult();
+        userID = (int) responseCreate.as(Response.class).getResult();
         return this;
     }
 
