@@ -145,15 +145,19 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>system_property</id>
+            <properties>
+                <browser_name>chrome</browser_name>
+                <url_project>http://localhost/login</url_project>
+                <browser_headless>false</browser_headless>
+                <url_project_api>http://localhost:80/jsonrpc.php</url_project_api>
+                <kanboard_token>7a68c425c7923d0f144dc5598b09ccb15eab9bff85c6239f481c21814bd3</kanboard_token>
+            </properties>
+        </profile>
     </profiles>
 
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -162,20 +166,6 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire.version}</version>
-                <configuration>
-                    <systemPropertyVariables>
-                        <browser_name>chrome</browser_name>
-                        <url_project>http://localhost/login</url_project>
-                        <browser_headless>false</browser_headless>
-                        <url_project_api>http://localhost:80/jsonrpc.php</url_project_api>
-                        <kanboard_token>7a68c425c7923d0f144dc5598b09ccb15eab9bff85c6239f481c21814bd3</kanboard_token>
-                    </systemPropertyVariables>
                 </configuration>
             </plugin>
             <plugin>

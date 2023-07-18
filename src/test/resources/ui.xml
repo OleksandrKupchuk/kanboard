@@ -7,8 +7,8 @@
     <test name="UI test">
         <classes>
             <class name="login.LoginTest"/>
-<!--            <class name="project.ProjectTest"/>-->
-<!--            <class name="task.TaskTest"/>-->
+            <class name="project.ProjectTest"/>
+            <class name="task.TaskTest"/>
         </classes>
     </test>
 </suite>
