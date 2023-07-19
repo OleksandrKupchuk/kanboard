@@ -4,10 +4,12 @@ import htttpmethod.POST;
 import json.request.Request;
 import json.request.project.*;
 import json.response.Response;
+import logger.Logger;
 
 import static method.ProjectMethod.*;
 
 public class ProjectApi {
+    private Logger logger = new Logger();
     private int projectID;
     private io.restassured.response.Response responseCreate;
     private io.restassured.response.Response responseRemove;
@@ -34,6 +36,8 @@ public class ProjectApi {
                 .params(params)
                 .build();
 
+
+        logger.log(CREATE_PROJECT);
         responseCreate = POST.send(createUserRequest);
         projectID = (int)responseCreate.as(Response.class).getResult();
         return this;
@@ -50,6 +54,7 @@ public class ProjectApi {
                 .params(params)
                 .build();
 
+        logger.log(ADD_PROJECT_USER);
         POST.send(createUserRequest);
         return this;
     }
@@ -65,11 +70,15 @@ public class ProjectApi {
                 .params(params)
                 .build();
 
+        logger.log(ADD_PROJECT_USER);
         POST.send(createUserRequest);
         return this;
     }
 
-    public io.restassured.response.Response getProjectById(int projectID) {
+    public io.restassured.response.Response getProjectById() {
+        if (projectID == 0){
+            throw new RuntimeException("Please create a project before receiving details");
+        }
         ParamsGetProjectById params = ParamsGetProjectById.builder()
                 .project_id(projectID)
                 .build();
@@ -79,10 +88,11 @@ public class ProjectApi {
                 .params(params)
                 .build();
 
+        logger.log(GET_PROJECT_BY_ID);
         return POST.send(createUserRequest);
     }
 
-    public void remove(int projectID) {
+    public void remove() {
         ParamsRemoveProject params = ParamsRemoveProject.builder()
                 .project_id(Integer.toString(projectID))
                 .build();
@@ -92,6 +102,7 @@ public class ProjectApi {
                 .params(params)
                 .build();
 
+        logger.log(REMOVE_PROJECT);
         responseRemove = POST.send(request);
     }
 }

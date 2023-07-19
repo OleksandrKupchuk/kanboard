@@ -60,8 +60,8 @@ public class TaskTest {
         new ProjectPage()
                 .assertExistTaskInColumn(boardApi.getBacklogColumnID(), Tasks.AUTOMATION.getTitle());
 
-        projectApi.remove(projectApi.getProjectID());
-        userApi.remove(userApi.getUserID());
+        projectApi.remove();
+        userApi.remove();
     }
 
     @Test(groups = {"ui", "api"})
@@ -115,8 +115,8 @@ public class TaskTest {
         new ProjectPage()
                 .assertNotExistTaskInColumn(boardApi.getReadyColumnID(), taskParams.getTitle());
 
-        projectApi.remove(projectApi.getProjectID());
-        userApi.remove(userApi.getUserID());
+        projectApi.remove();
+        userApi.remove();
     }
 
     @Test(groups = {"ui", "api"})
@@ -164,8 +164,8 @@ public class TaskTest {
                 .clickSaveButton()
                 .assertVisibleComment(commentForTask);
 
-        projectApi.remove(projectApi.getProjectID());
-        userApi.remove(userApi.getUserID());
+        projectApi.remove();
+        userApi.remove();
     }
 
     @Test(groups = {"ui", "api"})
@@ -204,7 +204,7 @@ public class TaskTest {
                 .dragTask(boardApi.getBacklogColumnID(), boardApi.getDoneColumnID())
                 .assertExistTaskInColumn(boardApi.getDoneColumnID(), taskParams.getTitle());
 
-        projectApi.remove(projectApi.getProjectID());
-        userApi.remove(userApi.getUserID());
+        projectApi.remove();
+        userApi.remove();
     }
 }

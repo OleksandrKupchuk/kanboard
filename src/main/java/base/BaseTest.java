@@ -7,10 +7,11 @@ import config.Config;
 import org.testng.annotations.*;
 
 public class BaseTest {
+
     @BeforeMethod
     public void setUp(){
         Configuration.browser = Config.WEB_BROWSER_NAME;
-        Configuration.headless =  Config.BROWSER_HEADLESS;
+        Configuration.headless = Config.BROWSER_HEADLESS;
         Selenide.open();
         WebDriverRunner.getWebDriver().manage().window().maximize();
     }

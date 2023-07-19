@@ -9,14 +9,15 @@ import json.request.user.ParamsGetUserByName;
 import json.request.user.ParamsRemoveUser;
 import json.request.user.ParamsUpdateUser;
 import json.response.Response;
+import logger.Logger;
 
 import static method.UserMethod.*;
 
 public class UserApi {
+    private Logger logger = new Logger();
     private User user = new User();
     private io.restassured.response.Response responseCreate;
     private io.restassured.response.Response responseRemove;
-    private io.restassured.response.Response responseUserByName;
     private int userID;
 
     public int getUserID() {
@@ -29,10 +30,6 @@ public class UserApi {
 
     public io.restassured.response.Response getResponseRemove() {
         return responseRemove;
-    }
-
-    public io.restassured.response.Response getResponseUserByName() {
-        return responseUserByName;
     }
 
     public User getUser() {
@@ -57,6 +54,7 @@ public class UserApi {
                 .params(params)
                 .build();
 
+        logger.log(CREATE_USER);
         responseCreate = POST.send(request);
         userID = (int) responseCreate.as(Response.class).getResult();
         return this;
@@ -73,13 +71,18 @@ public class UserApi {
                 .params(params)
                 .build();
 
+        logger.log(UPDATE_USER);
         POST.send(request);
         return this;
     }
 
-    public UserApi getUserByName(String name) {
+    public io.restassured.response.Response getUserByName() {
+        if (user.getUserName().isEmpty()){
+            throw new RuntimeException("Please create a user before receiving details");
+        }
+
         ParamsGetUserByName params = ParamsGetUserByName.builder()
-                .username(name)
+                .username(user.getUserName())
                 .build();
 
         Request request = Request.builder()
@@ -87,11 +90,11 @@ public class UserApi {
                 .params(params)
                 .build();
 
-        responseUserByName = POST.send(request);
-        return this;
+        logger.log(GET_USER_BY_NAME);
+        return POST.send(request);
     }
 
-    public UserApi remove(int userID) {
+    public UserApi remove() {
         ParamsRemoveUser params = ParamsRemoveUser.builder()
                 .user_id(userID)
                 .build();
@@ -101,6 +104,7 @@ public class UserApi {
                 .params(params)
                 .build();
 
+        logger.log(REMOVE_USER);
         responseRemove = POST.send(request);
         return this;
     }

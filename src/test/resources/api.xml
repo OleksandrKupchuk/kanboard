@@ -6,9 +6,11 @@
     </listeners>
     <test name="Api test">
         <classes>
-            <class name="api.ApiTest">
+            <class name="task.TaskTest"></class>
+            <class name="api.ApiTest"></class>
+            <class name="project.ProjectTest">
                 <methods>
-                    <include name="createAndDeleteProject"/>
+                    <include name="testCloseProject"/>
                 </methods>
             </class>
         </classes>

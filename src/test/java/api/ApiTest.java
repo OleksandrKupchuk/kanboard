@@ -3,6 +3,7 @@ package api;
 import data.task.ColorId;
 import data.text.ProjectName;
 import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import json.request.task.ParamsCreateTask;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -12,29 +13,32 @@ public class ApiTest {
     @Test(groups = {"api"})
     public void createAndDeleteUser(){
         JsonPath jsonPath;
+        Response response;
 
         UserApi userApi = new UserApi()
                 .create();
 
-        jsonPath = userApi.getResponseCreate().jsonPath();
+        response = userApi.getResponseCreate();
+        jsonPath = response.jsonPath();
 
-        Assert.assertEquals(userApi.getResponseCreate().statusCode(), 200);
+        Assert.assertEquals(response.statusCode(), 200);
         Assert.assertNotEquals(jsonPath.get("result"), false);
 
-        userApi.getUserByName(userApi.getUser().getUserName());
-        jsonPath = userApi.getResponseUserByName().jsonPath();
+        response = userApi.getUserByName();
+        jsonPath = response.jsonPath();
 
-        Assert.assertEquals(userApi.getResponseUserByName().statusCode(), 200);
+        Assert.assertEquals(response.statusCode(), 200);
         Assert.assertEquals(jsonPath.get("result.username"), userApi.getUser().getUserName());
 
-        userApi.remove(userApi.getUserID());
+        userApi.remove();
 
-        jsonPath = userApi.getResponseRemove().jsonPath();
-        Assert.assertEquals(userApi.getResponseRemove().statusCode(), 200);
+        response = userApi.getResponseRemove();
+        jsonPath = response.jsonPath();
+        Assert.assertEquals(response.statusCode(), 200);
         Assert.assertTrue(jsonPath.get("result"));
 
-        userApi.getUserByName(userApi.getUser().getUserName());
-        jsonPath = userApi.getResponseUserByName().jsonPath();
+        response = userApi.getUserByName();
+        jsonPath = response.jsonPath();
 
         Assert.assertNull(jsonPath.get("result"));
     }
@@ -42,31 +46,36 @@ public class ApiTest {
     @Test(groups = {"api"})
     public void createAndDeleteProject(){
         JsonPath jsonPath;
+        Response response;
 
         ProjectApi projectApi = new ProjectApi()
                 .create(ProjectName.MANUAL);
 
-        jsonPath = projectApi.getResponseCreate().jsonPath();
-        Assert.assertEquals(projectApi.getResponseCreate().statusCode(), 200);
+        response = projectApi.getResponseCreate();
+        jsonPath = response.jsonPath();
+        Assert.assertEquals(response.statusCode(), 200);
         Assert.assertNotEquals(jsonPath.get("result"), false);
 
-        jsonPath = projectApi.getProjectById(projectApi.getProjectID()).jsonPath();
-        Assert.assertEquals(projectApi.getProjectById(projectApi.getProjectID()).statusCode(), 200);
+        response = projectApi.getProjectById();
+        jsonPath = response.jsonPath();
+        Assert.assertEquals(response.statusCode(), 200);
         Assert.assertEquals(jsonPath.get("result.name"), ProjectName.MANUAL);
 
-        projectApi.remove(projectApi.getProjectID());
+        projectApi.remove();
 
-        jsonPath = projectApi.getResponseRemove().jsonPath();
-        Assert.assertEquals(projectApi.getResponseRemove().statusCode(), 200);
+        response = projectApi.getResponseRemove();
+        jsonPath = response.jsonPath();
+        Assert.assertEquals(response.statusCode(), 200);
         Assert.assertTrue(jsonPath.get("result"));
 
-        jsonPath = projectApi.getProjectById(projectApi.getProjectID()).jsonPath();
+        jsonPath = projectApi.getProjectById().jsonPath();
         Assert.assertNull(jsonPath.get("result"));
     }
 
     @Test(groups = {"api"})
     public void createAndDeleteTask(){
         JsonPath jsonPath;
+        Response response;
 
         ProjectApi projectApi = new ProjectApi()
                 .create(ProjectName.MANUAL);
@@ -81,24 +90,27 @@ public class ApiTest {
         TaskApi taskApi = new TaskApi()
                 .create(taskParams);
 
-        jsonPath = taskApi.getResponseCreate().jsonPath();
+        response = taskApi.getResponseCreate();
+        jsonPath = response.jsonPath();
 
-        Assert.assertEquals(taskApi.getResponseCreate().statusCode(), 200);
+        Assert.assertEquals(response.statusCode(), 200);
         Assert.assertNotEquals(jsonPath.get("result"), false);
 
-        jsonPath = taskApi.getTaskById(taskApi.getTaskID()).jsonPath();
+        response = taskApi.getTaskById();
+        jsonPath = response.jsonPath();
 
-        Assert.assertEquals(taskApi.getTaskById(taskApi.getTaskID()).statusCode(), 200);
+        Assert.assertEquals(response.statusCode(), 200);
         Assert.assertEquals(jsonPath.get("result.title"), taskParams.getTitle());
         Assert.assertEquals((int) jsonPath.get("result.id"), taskApi.getTaskID());
 
-        taskApi.remove(taskApi.getTaskID());
+        taskApi.remove();
 
-        jsonPath = taskApi.getResponseRemove().jsonPath();
-        Assert.assertEquals(taskApi.getResponseRemove().statusCode(), 200);
+        response = taskApi.getResponseRemove();
+        jsonPath = response.jsonPath();
+        Assert.assertEquals(response.statusCode(), 200);
         Assert.assertTrue(jsonPath.get("result"));
 
-        jsonPath = taskApi.getTaskById(taskApi.getTaskID()).jsonPath();
+        jsonPath = taskApi.getTaskById().jsonPath();
 
         Assert.assertNull(jsonPath.get("result"));
     }

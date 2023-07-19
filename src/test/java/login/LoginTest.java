@@ -10,6 +10,7 @@ import static data.text.DashboardText.*;
 import static data.text.LoginText.*;
 
 public class LoginTest extends BaseTest {
+
     @Test(groups = {"ui"})
     public void testSuccessLogin() {
         new LoginPage()

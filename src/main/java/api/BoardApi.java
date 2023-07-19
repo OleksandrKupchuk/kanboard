@@ -2,13 +2,14 @@ package api;
 
 import htttpmethod.POST;
 import io.restassured.path.json.JsonPath;
-import io.restassured.response.Response;
 import json.request.Request;
-import json.request.project.ParamsRemoveProject;
+import json.request.project.ParamsGetProjectById;
+import logger.Logger;
 
-import static method.BoardMethod.GET_BOARD;
+import static method.BoardMethod.*;
 
 public class BoardApi {
+    private Logger logger = new Logger();
     private int backlogColumnID;
     private int readyColumnID;
     private int workInProgressColumnID;
@@ -31,8 +32,8 @@ public class BoardApi {
     }
 
     public BoardApi getBoard(int projectID) {
-        ParamsRemoveProject params = ParamsRemoveProject.builder()
-                .project_id(Integer.toString(projectID))
+        ParamsGetProjectById params = ParamsGetProjectById.builder()
+                .project_id(projectID)
                 .build();
 
         Request request = Request.builder()
@@ -40,8 +41,8 @@ public class BoardApi {
                 .params(params)
                 .build();
 
-        Response response = POST.send(request);
-        JsonPath jsonpath = response.jsonPath();
+        logger.log(GET_BOARD);
+        JsonPath jsonpath = POST.send(request).jsonPath();
         backlogColumnID = jsonpath.getInt("result[0].columns[0].id");
         readyColumnID = jsonpath.getInt("result[0].columns[1].id");
         workInProgressColumnID = jsonpath.getInt("result[0].columns[2].id");
