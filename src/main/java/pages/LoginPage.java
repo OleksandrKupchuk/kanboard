@@ -3,6 +3,8 @@ package pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import config.Config;
+import data.user.User;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -13,13 +15,13 @@ public class LoginPage {
     private SelenideElement alertError = $(".alert.alert-error");
 
     public LoginPage open(){
-        Selenide.open("http://localhost/login");
+        Selenide.open(Config.URL);
         return this;
     }
 
-    public LoginPage login(String userName, String password){
-        setUserName(userName);
-        setPassword(password);
+    public LoginPage login(User user){
+        setUserName(user.getUserName());
+        setPassword(user.getPassword());
         clickSignInButton();
         return this;
     }

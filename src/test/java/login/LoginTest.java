@@ -1,0 +1,32 @@
+package login;
+
+import base.BaseTest;
+import data.user.Users;
+import org.testng.annotations.*;
+import pages.KanboardMainPage;
+import pages.LoginPage;
+
+import static data.text.DashboardText.*;
+import static data.text.LoginText.*;
+
+public class LoginTest extends BaseTest {
+
+    @Test(groups = {"ui"})
+    public void testSuccessLogin() {
+        new LoginPage()
+                .open()
+                .login(Users.ADMIN);
+
+        new KanboardMainPage()
+                .getBasePage()
+                .assertDashboardTitle(DASHBOARD_TITLE);
+    }
+
+    @Test(groups = {"ui"})
+    public void testUnsuccessfulLogin() {
+        new LoginPage()
+                .open()
+                .login(Users.NOT_EXISTENT)
+                .assertAlertErrorText(BAD_CREDENTIAL);
+    }
+}
