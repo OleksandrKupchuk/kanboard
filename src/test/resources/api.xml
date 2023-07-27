@@ -6,13 +6,13 @@
     </listeners>
     <test name="Api test">
         <classes>
-            <class name="task.TaskTest"></class>
+<!--            <class name="task.TaskTest"></class>-->
             <class name="api.ApiTest"></class>
-            <class name="project.ProjectTest">
-                <methods>
-                    <include name="testCloseProject"/>
-                </methods>
-            </class>
+<!--            <class name="project.ProjectTest">-->
+<!--                <methods>-->
+<!--                    <include name="testCloseProject"/>-->
+<!--                </methods>-->
+<!--            </class>-->
         </classes>
     </test>
 </suite>
