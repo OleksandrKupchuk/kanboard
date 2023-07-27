@@ -12,7 +12,7 @@ public class BaseTest {
     public void setUp(){
         Configuration.browser = Config.WEB_BROWSER_NAME;
         Configuration.headless = Config.BROWSER_HEADLESS;
-        Selenide.open();
+        Selenide.open("http://localhost:80");
         WebDriverRunner.getWebDriver().manage().window().maximize();
     }
 
