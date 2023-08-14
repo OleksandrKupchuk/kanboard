@@ -13,6 +13,15 @@
  &nbsp; instruction on [linux/mac](https://reportportal.io/docs/installation-steps/DeployWithDockerOnLinuxMac/)<br />
  &nbsp; instruction on [windows](https://reportportal.io/docs/installation-steps/DeployWithDockerOnWindows)
 
+<h3>Settings ReportPortal<br></h3>
+After run docker-compose report portal your need login as superadmin<br>
+In file <strong>reportportal.properties</strong> set next settings
+
+> * rp.endpoint = "your URL"
+> * rp.uuid = "your uuid"(click on user icon, choose 'Profile' you will see configuration)
+> * rp.launch = "your name launch"
+> * rp.project = "your project name"
+
 <h3>Run test<br></h3>
 Your can run test without changing code using system property or profiles in console<br /> 
 
